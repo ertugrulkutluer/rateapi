@@ -1,8 +1,8 @@
-const rateLimits = require("../config/rate.limits");
 const config = require("../config");
-const _ = require("lodash");
 const Boom = require("boom");
 const moment = require("moment");
+
+const calculateRateLimit = require("../utilities/calculate.rate.limit");
 
 REQUESTS_LIMIT = 100;
 TTL = 60 * 60; // 3600 seconds = an hour
@@ -15,18 +15,19 @@ module.exports = async (req, res, next) => {
     const key = req.ip;
 
     // Get the how many credits will spend on this request
-    const endpoint_credit = await getRateLimits(req);
+    const endpoint_credit = await calculateRateLimit.getRateLimits(req);
 
     // Check the redis cloud for the IP address
     let result = await global.redisClient.hgetall(key);
 
     // If there is no record for the IP address, then create a new one
     if (!result) {
+      expire_time = moment().add(1, "hour").unix()
       await global.redisClient.hmset(key, {
         credits: JSON.stringify(1),
-        exp: moment().add(1, "hour").valueOf(),
+        exp: expire_time,
       });
-      await global.redisClient.expire(key, config.TTL); // set expiry to 1h
+      await global.redisClient.expire(key, config.TTL); // set expiry to 1h      
       // If there is a record for the IP address, then check there is enough credits
     } else {
       expire_time = Number(JSON.parse(result.exp));
@@ -46,9 +47,10 @@ module.exports = async (req, res, next) => {
       });
     }
 
+    // To show token's rate & exp time information
     res.ip_credits_left =
       config.IP_REQUESTS_LIMIT - (credits + endpoint_credit);
-    res.ip_expire_time = moment.unix(moment.unix(expire_time).diff(moment(), 'minutes')).format("mm:ss");
+    res.ip_expire_time = `${moment.unix(expire_time).diff(moment(), 'minutes')} mins`;
 
     next();
   } catch (err) {
@@ -59,19 +61,4 @@ module.exports = async (req, res, next) => {
   }
 };
 
-/**
- *
- * @param {*} req
- * @returns endpoint credit ratio
- */
-const getRateLimits = async (req) => {
-  if (req.baseUrl.includes("v1")) {
-    const path = req.route.path.split("/")[1];
-    const limits = rateLimits["v1"][`${path}`];
-    const limit = _.find(limits, (l, i) => {
-      return i === req.route.path;
-    });
-    if (limit) return limit;
-    return 1;
-  }
-};
+

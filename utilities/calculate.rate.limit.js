@@ -1,24 +1,18 @@
-module.exports.rateLimit = async (req, res, next) => {
-  try {
-    const headers = req.headers["authorization"];
-    const token = headers && headers.split(" ")[1];
-
-    if (token == null) return res.sendStatus(401);
-
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    
-    if(decoded && decoded.init_time && decoded.token){
-        
-    }
-
-    if (err) return res.sendStatus(403);
-
-    req.user = user;
-
-    next();
-  } catch (err) {
-    return res.status(401).send({
-      message: "Auth failed",
+const rateLimits = require("../config/rate.limits");
+const _ = require("lodash");
+/**
+ *
+ * @param {*} req
+ * @returns endpoint credit ratio
+ */
+module.exports.getRateLimits = async (req) => {
+  if (req.baseUrl.includes("v1")) {
+    const path = req.route.path.split("/")[1];
+    const limits = rateLimits["v1"][`${path}`];
+    const limit = _.find(limits, (l, i) => {
+      return i === req.route.path;
     });
+    if (limit) return limit;
+    return 1;
   }
 };

@@ -2,14 +2,18 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const glob = require("glob");
-const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const redis = require("async-redis");
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
 
-const connectDBRedis = async() => {
+const app = express();
+// const mockServer = {
+//   app,
+//   connectDBRedis
+// }
+const connectDBRedis = async () => {
   try {
     global.redisClient = redis.createClient(
       process.env.REDIS_PORT,
@@ -28,7 +32,6 @@ const connectDBRedis = async() => {
 
 async function startServer() {
   try {
-    const app = express();
     // Get config vars
     dotenv.config({ path: path.resolve(__dirname + "/environments/.env") }); // This usage is necessary for MacOS users.
     const PORT = process.env.PORT;
@@ -39,7 +42,7 @@ async function startServer() {
     // app.use(cors);
 
     // Database connection
-    await mongoose.connect(process.env.MONGO_URI).catch((err) => {
+    mongoose.connect(process.env.MONGO_URI).catch((err) => {
       if (err) console.error("Could not connect to MongoDB: " + err);
     });
 
@@ -59,7 +62,7 @@ async function startServer() {
         {
           expiry_time: moment().valueOf(),
           credit: 100,
-          role: "user",
+          role: "user"
         },
         process.env.SECRET_KEY,
         { expiresIn: "24h" }
@@ -71,7 +74,7 @@ async function startServer() {
 
     // Redis connection
     try {
-      await connectDBRedis();
+      connectDBRedis();
     } catch (error) {
       console.error("Redis Cloud connection error", error);
     }
@@ -83,5 +86,5 @@ async function startServer() {
     console.log("Error starting server:", err);
   }
 }
-
-module.exports = startServer();
+module.exports = startServer()
+module.exports = app;

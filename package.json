@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "test": "jest --testTimeout=10000"
   },
   "author": "",
   "license": "ISC",
@@ -26,5 +27,15 @@
     "mongoose": "^6.4.1",
     "mongoose-paginate-v2": "^1.6.3",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "jest": "^28.1.2",
+    "supertest": "^6.2.4"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
