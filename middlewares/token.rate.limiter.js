@@ -5,9 +5,6 @@ const moment = require("moment");
 const redisUtil = require("../utilities/redis");
 const calculateRateLimit = require("../utilities/calculate.rate.limit");
 
-REQUESTS_LIMIT = 100;
-TTL = 60 * 60; // 3600 seconds = an hour
-
 module.exports = async (req, res, next) => {
   try {
     let credits = 0;
