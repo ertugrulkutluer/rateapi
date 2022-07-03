@@ -6,9 +6,9 @@ const _ = require("lodash");
  * @returns endpoint credit ratio
  */
 module.exports.getRateLimits = async (req) => {
-  if (req.baseUrl.includes("v1")) {
-    const path = req.route.path.split("/")[1];
-    const limits = rateLimits["v1"][`${path}`];
+  if (req.baseUrl.split("/")[2] === "v1") {
+    const method = req.method.toLowerCase();
+    const limits = rateLimits["v1"][`${method}`];
     const limit = _.find(limits, (l, i) => {
       return i === req.route.path;
     });

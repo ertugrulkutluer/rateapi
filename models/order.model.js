@@ -17,7 +17,7 @@ const OrderSchema = new Schema(
   },
   {
     versionKey: false,
-    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+    timestamps: true,
   }
 );
 OrderSchema.set("timestamps", true); // this will add createdAt and updatedAt timestamps

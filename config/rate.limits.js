@@ -1,8 +1,13 @@
 module.exports = {
   v1: {
-    users: {
-        "/users/:_id": 0,
-        "/users": 0
+    get: {
+      "/users/:_id": 1,
+      "/users": 2,
+      "/orders/:_id": 1,
+      "/orders": 3,
+    },
+    post: {
+      "/orders": 5,
     },
   },
 };

@@ -9,6 +9,9 @@ module.exports.authenticateToken = async (req, res, next) => {
     if (token == null) return res.sendStatus(401);
 
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    if(decoded){
+      // do some auth stuff 
+    }
 
     next();
   } catch (err) {
