@@ -155,7 +155,9 @@ curl --location --request GET 'https://exp-rate-api.herokuapp.com/api/v1/orders?
                     "username": "ertugrul",
                     "role": "admin",
                     "active": true
-                }
+                },
+                "createdAt": "2022-07-03T18:50:30.603Z",
+                "updatedAt": "2022-07-03T18:50:30.603Z"
             },
             {
                 "_id": "62c1e69aeaad83b46f6fafb9",
@@ -175,7 +177,7 @@ curl --location --request GET 'https://exp-rate-api.herokuapp.com/api/v1/orders?
         "totalDocs": 4,
         "offset": 0,
         "limit": 10,
-        "totalPages": 1,
+        "totalPages": 2,
         "page": 1,
         "pagingCounter": 1,
         "hasPrevPage": false,
