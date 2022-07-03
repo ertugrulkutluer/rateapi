@@ -7,12 +7,10 @@ const dotenv = require("dotenv");
 const redis = require("async-redis");
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
+var morgan = require('morgan')
 
 const app = express();
-// const mockServer = {
-//   app,
-//   connectDBRedis
-// }
+
 const connectDBRedis = async () => {
   try {
     global.redisClient = redis.createClient(
@@ -39,10 +37,12 @@ async function startServer() {
     // Express configs
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
-    // app.use(cors);
+
+    // Logger configuration
+    app.use(morgan('combined'))
 
     // Database connection
-    mongoose.connect(process.env.MONGO_URI).catch((err) => {
+    await mongoose.connect(process.env.MONGO_URI).catch((err) => {
       if (err) console.error("Could not connect to MongoDB: " + err);
     });
 
@@ -62,7 +62,7 @@ async function startServer() {
         {
           expiry_time: moment().valueOf(),
           credit: 100,
-          role: "user"
+          role: "user",
         },
         process.env.SECRET_KEY,
         { expiresIn: "24h" }
@@ -74,7 +74,7 @@ async function startServer() {
 
     // Redis connection
     try {
-      connectDBRedis();
+      await connectDBRedis();
     } catch (error) {
       console.error("Redis Cloud connection error", error);
     }
@@ -86,5 +86,5 @@ async function startServer() {
     console.log("Error starting server:", err);
   }
 }
-module.exports = startServer()
-module.exports = app;
+module.exports.startServer = startServer();
+module.exports.app = app;

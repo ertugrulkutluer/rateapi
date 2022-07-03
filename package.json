@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "test": "jest --testTimeout=10000"
+    "test": "jest --testTimeout=10000 --forceExit"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "moment": "^2.29.3",
     "mongoose": "^6.4.1",
     "mongoose-paginate-v2": "^1.6.3",
+    "morgan": "^1.10.0",
     "path": "^0.12.7"
   },
   "devDependencies": {

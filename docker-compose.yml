@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    command: npm start
+    volumes:
+      - .:/rateapi
+      - /usr/app/node_modules
+    ports:
+      - "8080:8080"
