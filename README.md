@@ -117,7 +117,7 @@ Make sure you have NodeJS (v14) installed.
 * A token can request a maximum of 200 times in 1 hour to each endpoint affected by the Token Rate Limiter middleware.
 
 ### Test Token
-***eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1NjcwNzUxNTg2MCwidG9rZW4iOjEwMCwiaWF0IjoxNjU2NzA3NTE1LCJleHAiOjE2NTY3OTM5MTV9.nV1EBe7L1PvtJAuD0ozJKvteudSVCsby_ZpRPw0DQLg***
+***eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1Njg2OTMwMDUxOSwiY3JlZGl0IjoxMDAsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjU2ODY5MzAwLCJleHAiOjE2ODg0MDUzMDB9.AXojTMLQz11g02jGBnioNycV0jjox6tGQoEHiJH4jyA***
 
 ### Test Server
 **https://exp-rate-api.herokuapp.com/**
@@ -132,7 +132,7 @@ Make sure you have NodeJS (v14) installed.
 ### Example Request
 ```bash
 curl --location --request GET 'https://exp-rate-api.herokuapp.com/api/v1/users/62bf52bf254fd7f9f4a6dc9e' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1Njc4Njg4MDM2MywiY3JlZGl0IjoxMDAsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjU2Nzg2ODgwLCJleHAiOjE2NTY4NzMyODB9.RkAdD8ZvYji8cqtk3_eyTaDzv854g8vmyYucAbDzCW4'
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1Njg2OTMwMDUxOSwiY3JlZGl0IjoxMDAsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjU2ODY5MzAwLCJleHAiOjE2ODg0MDUzMDB9.AXojTMLQz11g02jGBnioNycV0jjox6tGQoEHiJH4jyA'
    ```
 
 ### Example Response
