@@ -26,7 +26,8 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation-(with-docker)">Installation with Docker</a></li>
+        <li><a href="#installation-with-docker">Installation with Docker</a></li>
+        <li><a href="#installation-without-docker">Installation without Docker</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
