@@ -43,7 +43,7 @@ module.exports = async (req, res, next) => {
           "The hourly request limit with the token has been exceeded."
         );
       }
-      // If there is enough credits, then increase the credit usage count
+      // If there are enough credits, then increase the credit usage count
       await global.redisClient.hmset(token, {
         credits: JSON.stringify(credits + endpoint_credit),
         exp: expire_time,
