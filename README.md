@@ -112,8 +112,8 @@ Make sure you have NodeJS (v14) installed.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-* An IP can send a maximum of 100 requests within 1 hour to each endpoint affected by the Rate Limiter middleware.
-* A token can request a maximum of 200 times in 1 hour to each endpoint affected by the Rate Limiter middleware.
+* An IP can send a maximum of 100 requests within 1 hour to each endpoint affected by the IP Rate Limiter middleware.
+* A token can request a maximum of 200 times in 1 hour to each endpoint affected by the Token Rate Limiter middleware.
 
 ### Test Token
 ***eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1NjcwNzUxNTg2MCwidG9rZW4iOjEwMCwiaWF0IjoxNjU2NzA3NTE1LCJleHAiOjE2NTY3OTM5MTV9.nV1EBe7L1PvtJAuD0ozJKvteudSVCsby_ZpRPw0DQLg***
