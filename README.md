@@ -124,34 +124,69 @@ Make sure you have NodeJS (v14) installed.
 
 ### Test Endpoints
 
-* /users
-* /users/:_id
-* /orders
-* /orders/:id
+* /users       **GET**
+* /users/:_id  **GET**
+* /orders      **GET**
+* /orders/:id  **GET**
+* /orders      **POST**
+
 
 ### Example Request
 ```bash
-curl --location --request GET 'https://exp-rate-api.herokuapp.com/api/v1/users/62bf52bf254fd7f9f4a6dc9e' \
+curl --location --request GET 'https://exp-rate-api.herokuapp.com/api/v1/orders?populate=user' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1Njg2OTMwMDUxOSwiY3JlZGl0IjoxMDAsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjU2ODY5MzAwLCJleHAiOjE2ODg0MDUzMDB9.AXojTMLQz11g02jGBnioNycV0jjox6tGQoEHiJH4jyA'
    ```
 
 ### Example Response
    ```json
 {
-    "user": {
-        "_id": "62bf52bf254fd7f9f4a6dc9e",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1NjcwNzUxNTg2MCwidG9rZW4iOjEwMCwiaWF0IjoxNjU2NzA3NTE1LCJleHAiOjE2NTY3OTM5MTV9.nV1EBe7L1PvtJAuD0ozJKvteudSVCsby_ZpRPw0DQLg",
-        "username": "ertugrul",
-        "role": "admin",
-        "active": true
+    "orders": {
+        "docs": [
+            {
+                "items": [],
+                "_id": "62c1dd8e5d1a7de72632604c",
+                "delivered": true,
+                "user": {
+                    "_id": "62bf52bf254fd7f9f4a6dc9e",
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1NjcwNzUxNTg2MCwidG9rZW4iOjEwMCwiaWF0IjoxNjU2NzA3NTE1LCJleHAiOjE2NTY3OTM5MTV9.nV1EBe7L1PvtJAuD0ozJKvteudSVCsby_ZpRPw0DQLg",
+                    "username": "ertugrul",
+                    "role": "admin",
+                    "active": true
+                }
+            },
+            {
+                "_id": "62c1e69aeaad83b46f6fafb9",
+                "items": [],
+                "delivered": false,
+                "user": {
+                    "_id": "62bf6687254fd7f9f4a6dca3",
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1NjcwNzUxNTg2MCwidG9rZW4iOjEwMCwiaWF0IjoxNjU2NzA3NTE1LCJleHAiOjE2NTY3OTM5MTV9.nV1EBe7L1PvtJAuD0ozJKvteudSVCsby_ZpRPw0DQLg",
+                    "username": "Natalie",
+                    "role": "user",
+                    "active": true
+                },
+                "createdAt": "2022-07-03T18:57:30.603Z",
+                "updatedAt": "2022-07-03T18:57:30.603Z"
+            },
+        ],
+        "totalDocs": 4,
+        "offset": 0,
+        "limit": 10,
+        "totalPages": 1,
+        "page": 1,
+        "pagingCounter": 1,
+        "hasPrevPage": false,
+        "hasNextPage": false,
+        "prevPage": null,
+        "nextPage": null
     },
     "token": {
-        "credit_left": 191,
-        "expires_in": "40 mins"
+        "credit_left": 154,
+        "expires_in": "39 mins"
     },
     "ip": {
-        "credit_left": 99,
-        "expires_in": "59 mins"
+        "credit_left": 54,
+        "expires_in": "40 mins"
     }
 }
    ```
