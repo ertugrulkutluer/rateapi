@@ -54,7 +54,7 @@ async function startServer() {
 
     // Routes
     app.get("/", async function (req, res) {
-      res.send("Hello World");
+      res.send("An API written in ExpressJS with Custom IP and Token Rate Limiter");
     });
 
     app.get("/getToken", async function (req, res) {

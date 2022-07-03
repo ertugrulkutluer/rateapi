@@ -54,6 +54,7 @@ An API written in ExpressJS with custom IP and token rate limiter.
 * Redis Cloud
 * Jest
 * Docker
+* Heroku
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -118,6 +119,9 @@ Make sure you have NodeJS (v14) installed.
 ### Test Token
 ***eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1NjcwNzUxNTg2MCwidG9rZW4iOjEwMCwiaWF0IjoxNjU2NzA3NTE1LCJleHAiOjE2NTY3OTM5MTV9.nV1EBe7L1PvtJAuD0ozJKvteudSVCsby_ZpRPw0DQLg***
 
+### Test Server
+**https://exp-rate-api.herokuapp.com/**
+
 ### Test Endpoints
 
 * /users
@@ -125,6 +129,32 @@ Make sure you have NodeJS (v14) installed.
 * /orders
 * /orders/:id
 
+### Example Request
+```bash
+curl --location --request GET 'https://exp-rate-api.herokuapp.com/api/v1/users/62bf52bf254fd7f9f4a6dc9e' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1Njc4Njg4MDM2MywiY3JlZGl0IjoxMDAsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjU2Nzg2ODgwLCJleHAiOjE2NTY4NzMyODB9.RkAdD8ZvYji8cqtk3_eyTaDzv854g8vmyYucAbDzCW4'
+   ```
+
+### Example Response
+   ```json
+{
+    "user": {
+        "_id": "62bf52bf254fd7f9f4a6dc9e",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1NjcwNzUxNTg2MCwidG9rZW4iOjEwMCwiaWF0IjoxNjU2NzA3NTE1LCJleHAiOjE2NTY3OTM5MTV9.nV1EBe7L1PvtJAuD0ozJKvteudSVCsby_ZpRPw0DQLg",
+        "username": "ertugrul",
+        "role": "admin",
+        "active": true
+    },
+    "token": {
+        "credit_left": 191,
+        "expires_in": "40 mins"
+    },
+    "ip": {
+        "credit_left": 99,
+        "expires_in": "59 mins"
+    }
+}
+   ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -136,6 +166,7 @@ Make sure you have NodeJS (v14) installed.
 - [X] Authentication
 - [X] Rate Limiter
 - [X] Docker
+- [X] Deploy & Create CD/CD Pipelines on Heroku
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
