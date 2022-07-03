@@ -2,6 +2,7 @@ const config = require("../config");
 const Boom = require("boom");
 const moment = require("moment");
 
+const redisUtil = require("../utilities/redis");
 const calculateRateLimit = require("../utilities/calculate.rate.limit");
 
 REQUESTS_LIMIT = 100;
@@ -22,12 +23,15 @@ module.exports = async (req, res, next) => {
 
     // If there is no record for the IP address, then create a new one
     if (!result) {
-      expire_time = moment().add(1, "hour").unix()
-      await global.redisClient.hmset(key, {
-        credits: JSON.stringify(1),
-        exp: expire_time,
-      });
-      await global.redisClient.expire(key, config.TTL); // set expiry to 1h      
+      expire_time = moment().add(1, "hour").unix();
+      redisUtil.create(
+        key,
+        {
+          credits: JSON.stringify(1),
+          exp: expire_time,
+        },
+        config.TTL // Expiration time (1 hour)
+      );
       // If there is a record for the IP address, then check there is enough credits
     } else {
       expire_time = Number(JSON.parse(result.exp));
@@ -43,14 +47,16 @@ module.exports = async (req, res, next) => {
       // If there is enough credits, then increase the credit usage count
       await global.redisClient.hmset(key, {
         credits: JSON.stringify(credits + endpoint_credit),
-        exp: expire_time
+        exp: expire_time,
       });
     }
 
-    // To show token's rate & exp time information
+    // To show token's rate & exp time information in response object
     res.ip_credits_left =
       config.IP_REQUESTS_LIMIT - (credits + endpoint_credit);
-    res.ip_expire_time = `${moment.unix(expire_time).diff(moment(), 'minutes')} mins`;
+    res.ip_expire_time = `${moment
+      .unix(expire_time)
+      .diff(moment(), "minutes")} mins`;
 
     next();
   } catch (err) {
@@ -60,5 +66,3 @@ module.exports = async (req, res, next) => {
     return res.status(500).json({ message: err.message });
   }
 };
-
-

@@ -2,6 +2,7 @@ const config = require("../config");
 const Boom = require("boom");
 const moment = require("moment");
 
+const redisUtil = require("../utilities/redis");
 const calculateRateLimit = require("../utilities/calculate.rate.limit");
 
 REQUESTS_LIMIT = 100;
@@ -14,7 +15,6 @@ module.exports = async (req, res, next) => {
     // Get the token
     const headers = req.headers["authorization"];
     const token = headers && headers.split(" ")[1];
-
     if (token == null) return res.sendStatus(401);
 
     // Get how many credits will spend on this request
@@ -25,12 +25,15 @@ module.exports = async (req, res, next) => {
 
     // If there is no record for the token, then create a new one
     if (!result) {
-      expire_time = moment().add(1, "hour").unix()
-      await global.redisClient.hmset(token, {
-        credits: JSON.stringify(1),
-        exp: expire_time,
-      });
-      await global.redisClient.expire(token, config.TTL); // set expiry to 1h
+      expire_time = moment().add(1, "hour").unix();
+      redisUtil.create(
+        token,
+        {
+          credits: JSON.stringify(1),
+          exp: expire_time,
+        },
+        config.TTL
+      );
       // If there is a record for the token, then check there is enough credits
     } else {
       expire_time = Number(JSON.parse(result.exp));
@@ -46,14 +49,16 @@ module.exports = async (req, res, next) => {
       // If there is enough credits, then increase the credit usage count
       await global.redisClient.hmset(token, {
         credits: JSON.stringify(credits + endpoint_credit),
-        exp: expire_time
+        exp: expire_time,
       });
     }
 
     // To show token's rate & exp time information
     res.token_credits_left =
       config.TOKEN_REQUESTS_LIMIT - (credits + endpoint_credit);
-    res.token_expire_time =  `${moment.unix(expire_time).diff(moment(), 'minutes')} mins`;
+    res.token_expire_time = `${moment
+      .unix(expire_time)
+      .diff(moment(), "minutes")} mins`;
 
     next();
   } catch (err) {
