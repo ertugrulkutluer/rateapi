@@ -1,10 +1,9 @@
 FROM node:14-alpine
 
-WORKDIR /rateapi
-
-COPY package*.json .
+WORKDIR /app
+COPY . /app
+COPY package.json /app
 RUN npm install
-
-COPY . ./
+COPY . /app
 EXPOSE 8080
 CMD [ "npm", "start" ] 

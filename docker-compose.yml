@@ -1,9 +1,8 @@
+version: "3"
 services:
-  web:
-    build: .
-    command: npm start
-    volumes:
-      - .:/rateapi
-      - /usr/app/node_modules
-    ports:
-      - "8080:8080"
+       login-app:
+           container_name: rateapi
+           restart: always
+           build: .
+           ports:
+             - "8080:8080"
