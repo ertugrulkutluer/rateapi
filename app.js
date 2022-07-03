@@ -64,8 +64,7 @@ async function startServer() {
           credit: 100,
           role: "user",
         },
-        process.env.SECRET_KEY,
-        { expiresIn: "24h" }
+        process.env.SECRET_KEY
       );
       res.send(token);
     });
