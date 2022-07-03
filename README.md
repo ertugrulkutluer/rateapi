@@ -113,8 +113,11 @@ Make sure you have NodeJS (v14) installed.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-* An IP can send a maximum of 100 requests within 1 hour to each endpoint affected by the IP Rate Limiter middleware.
-* A token can request a maximum of 200 times in 1 hour to each endpoint affected by the Token Rate Limiter middleware.
+* An IP has 100 credits within 1 hour to request any endpoint affected by the IP Rate Limiter middleware.
+* A token has 200 credits within 1 hour to request any endpoint affected by the IP Rate Limiter middleware.
+* Each endpoint can spend different credit points.
+
+** Credits of endpoints can set through rate.limits.js file in config folder.
 
 ### Test Token
 ***eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcnlfdGltZSI6MTY1Njg2OTMwMDUxOSwiY3JlZGl0IjoxMDAsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjU2ODY5MzAwLCJleHAiOjE2ODg0MDUzMDB9.AXojTMLQz11g02jGBnioNycV0jjox6tGQoEHiJH4jyA***
@@ -124,11 +127,11 @@ Make sure you have NodeJS (v14) installed.
 
 ### Test Endpoints
 
-* /users       **GET**
-* /users/:_id  **GET**
-* /orders      **GET**
-* /orders/:id  **GET**
-* /orders      **POST**
+* /users       **GET** **2 Credits**
+* /users/:_id  **GET** **1 Credits**
+* /orders      **GET** **3 Credits**
+* /orders/:id  **GET** **1 Credits**
+* /orders      **POST** **5 Credits**
 
 
 ### Example Request
