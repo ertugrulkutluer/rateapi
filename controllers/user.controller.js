@@ -7,18 +7,28 @@ const getUser = async (req, res) => {
     user,
     token: {
       credit_left: res.token_credits_left,
-      expires_in: res.token_expire_time
+      expires_in: res.token_expire_time,
     },
-    ip:{
+    ip: {
       credit_left: res.ip_credits_left,
-      expires_in: res.ip_expire_time
-    }
+      expires_in: res.ip_expire_time,
+    },
   });
 };
 // For View
 const getUsers = async (req, res) => {
   const users = await User.paginate();
-  res.json({ users });
+  res.json({
+    users,
+    token: {
+      credit_left: res.token_credits_left,
+      expires_in: res.token_expire_time,
+    },
+    ip: {
+      credit_left: res.ip_credits_left,
+      expires_in: res.ip_expire_time,
+    },
+  });
 };
 module.exports = {
   getUser,
